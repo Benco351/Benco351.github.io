@@ -6,105 +6,75 @@ var cacheFiles = [
   'Ben_Cohen CV.docx',
   'index.html',
   'default.css',
-  'blue.css',
-  'purple.css',
-  'green.css',
-  'script.js',
-  'images/',
-  'https://code.jquery.com/jquery-3.3.1.min.js'
+  'css/blue.css',
+  'css/purple.css',
+  'css/green.css',
+  'assets/script.js',
+  'images/Ben.jpg',
+  'images/follow.jpg
 ]
 
-
-self.addEventListener('install', function(e) {
-    console.log('[ServiceWorker] Installed');
-
-    // e.waitUntil Delays the event until the Promise is resolved
-    e.waitUntil(
-
-    	// Open the cache
-	    caches.open(cacheName).then(function(cache) {
-
-	    	// Add all the default files to the cache
-			console.log('[ServiceWorker] Caching cacheFiles');
-			return cache.addAll(cacheFiles);
-	    })
-	); // end e.waitUntil
+self.addEventListener('install', (e) => {
+  console.log('Service Worker: Installed');
+  e.waitUntil(
+    caches
+      .open(cacheName)
+      .then(cache => {
+        console.log('Service Worker: Caching Files');
+        cache.addAll(cacheAssets);
+      })
+      .then(() => self.skipWaiting())
+  );
 });
 
 
-self.addEventListener('activate', function(e) {
-    console.log('[ServiceWorker] Activated');
+// Activate the service worker
+self.addEventListener('activate', (e) => {
+  console.log('Service Worker: Activated');
 
-    e.waitUntil(
-
-    	// Get all the cache keys (cacheName)
-		caches.keys().then(function(cacheNames) {
-			return Promise.all(cacheNames.map(function(thisCacheName) {
-
-				// If a cached item is saved under a previous cacheName
-				if (thisCacheName !== cacheName) {
-
-					// Delete that cached file
-					console.log('[ServiceWorker] Removing Cached Files from Cache - ', thisCacheName);
-					return caches.delete(thisCacheName);
-				}
-			}));
-		})
-	); // end e.waitUntil
+  // Remove old caches
+  e.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        // look at all the cacheNames
+        cacheNames.map(cache => {
+          // if the current cache !== cacheName then delete it
+          if (cache !== cacheName) {
+            console.log('Service Worker: Clearing Old Cache');
+            return caches.delete(cache);
+          }
+        })
+      )
+    })
+  );
 
 });
 
 
-self.addEventListener('fetch', function(e) {
-	console.log('[ServiceWorker] Fetch', e.request.url);
 
-	// e.respondWidth Responds to the fetch event
-	e.respondWith(
+// listen for fetch event (HTTP request)
+self.addEventListener('fetch', (e) => {
+  console.log('Service Worker: Fetching');
 
-		// Check in cache for the request being made
-		caches.match(e.request)
+  // Offline backup
+  // e.respondWith(
+  //   // if the user is online, perform a regular HTTP request
+  //   fetch(e.request)
+  //   // if the HTTP request fails (offline) then serve the assets requested from the cache
+  //   .catch(() => caches.match(e.request))
+  // )
 
-
-			.then(function(response) {
-
-				// If the request is in the cache
-				if ( response ) {
-					console.log("[ServiceWorker] Found in Cache", e.request.url, response);
-					// Return the cached version
-					return response;
-				}
-
-				// If the request is NOT in the cache, fetch and cache
-
-				var requestClone = e.request.clone();
-				return fetch(requestClone)
-					.then(function(response) {
-
-						if ( !response ) {
-							console.log("[ServiceWorker] No response from fetch ")
-							return response;
-						}
-
-						var responseClone = response.clone();
-
-						//  Open the cache
-						caches.open(cacheName).then(function(cache) {
-
-							// Put the fetched response in the cache
-							cache.put(e.request, responseClone);
-							console.log('[ServiceWorker] New Data Cached', e.request.url);
-
-							// Return the response
-							return response;
-			
-				        }); // end caches.open
-
-					})
-					.catch(function(err) {
-						console.log('[ServiceWorker] Error Fetching & Caching New Data', err);
-					});
-
-
-			}) // end caches.match(e.request)
-	); // end e.respondWith
+  // Offline first
+  e.respondWith(
+    // are the files requested in the cache already?
+    caches.match(e.request).then(cachedResponse => {
+      // if yes, then serve files from cache
+      if (cachedResponse) {
+        console.log('Found in cache!');
+        return cachedResponse;
+      }
+      // else do an HTTP request to the server
+      return fetch(e.request);
+    })
+  )
 });
