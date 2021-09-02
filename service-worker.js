@@ -4,11 +4,11 @@ var cacheName = 'v1';
 // Default files to always cache
 var cacheFiles = [
 	'./',
-  './Ben_Cohen CV.docx',
-  './index.html',
-  './default.css',
-  './script.js',
-  './images'
+  '/Ben_Cohen CV.docx',
+  '/index.html',
+  '/default.css',
+  '/script.js',
+  '/images/'
 ]
 
 
