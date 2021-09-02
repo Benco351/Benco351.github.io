@@ -1,14 +1,15 @@
-if('serviceWorker' in navigator) {
-  let registration;
+if ('serviceWorker' in navigator) {
 
-  const registerServiceWorker = async () => {
-    registration = await          
-    navigator.serviceWorker.register('./service-worker.js');
-  };
+  navigator.serviceWorker
+    .register('./service-worker.js', { scope: './' })
+    .then(function(registration) {
+      console.log("Service Worker Registered");
+    })
+    .catch(function(err) {
+      console.log("Service Worker Failed to Register", err);
+    })
 
-  registerServiceWorker();
 }
-console.log('Its working')
 
 let theme = localStorage.getItem('theme')
 
