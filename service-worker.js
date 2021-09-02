@@ -3,12 +3,15 @@ var cacheName = 'v1';
 
 // Default files to always cache
 var cacheFiles = [
-	'./',
-  '/Ben_Cohen CV.docx',
-  '/index.html',
-  '/default.css',
-  '/script.js',
-  '/images/'
+  'Ben_Cohen CV.docx',
+  'index.html',
+  'default.css',
+  'blue.css',
+  'purple.css',
+  'green.css',
+  'script.js',
+  'images/',
+  'https://code.jquery.com/jquery-3.3.1.min.js'
 ]
 
 
