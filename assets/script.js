@@ -1,13 +1,10 @@
 if ('serviceWorker' in navigator) {
-
   navigator.serviceWorker
-     .register('./service-worker.js')
-    .then(function(registration) {
-      console.log("Service Worker Registered:", registration.scope);
-    })
-    .catch(function(err) {
-      console.log("Service Worker Failed to Register", err);
-    })
+  // Register the path to the service worker file
+  .register('./service-worker.js')
+  .then(function() {
+    console.log('Service Worker: Registered');
+  });
 }
 
 let theme = localStorage.getItem('theme')
