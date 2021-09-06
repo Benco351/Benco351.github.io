@@ -11,7 +11,7 @@ var cacheFiles = [
   'css/green.css',
   'assets/script.js',
   'images/Ben.jpg',
-  'images/follow.pnj'
+  'images/follow.png'
 ]
 
 self.addEventListener('install', (e) => {
