@@ -15,7 +15,7 @@
 	<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
         <script src="https://www.govmap.gov.il/govmap/api/govmap.api.js"></script>
         <script type="text/javascript">
-            $(document).ready(function () {
+            $(document).ready(function(){
                 govmap.createMap('map',
                     {
                         token: 'b2b83221-896c-490a-87b0-10b8d737dc3e',
@@ -28,15 +28,16 @@
                         zoomButtons: false
                     });
             });
-            function showExample() {
-                var params = {
-                    type: govmap.locateType.lotParcelToAddress,
-                    address: 'עין גדי 32, אילת'
-                }
-                govmap.searchAndLocate().then(function (response) {
-                    console.log(response)
-                });
-            }
+               function showExample(){
+      	  	     var params ={  
+                     	address: "הרוקמים 26 חולון",  
+                     	layerName: "SUB_GUSH_ALL",  
+                     	fields: ['GUSH_NUM']  
+                    	}
+               	     govmap.intersectFeatures(params).then(function (response){  
+            	     console.log(response);
+                     });     
+             }
         </script>
         <meta charset="utf-8" />
 </head>
@@ -161,8 +162,6 @@
         				 </div>
         				 <button onClick="showExample()">Show Example</button>
        					 <br /><br />
-       					 <iframe id='ifrMap' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' width='450px' height='350px' src='https://www.govmap.gov.il/map.html?bb=1&zb=1&in=1&c=179890.08,646716.8&z=10&lay=PARCEL_ALL&bs=PARCEL_ALL|179885.558,646716.2576'>
-       					 </iframe>
 					<!---<div class="post">
 						<img class="thumbnail" src="images/dash.jpg" alt="Me and only me">
 						<div class="post-preview">
