@@ -25,16 +25,16 @@ $(document).ready(function(){
 			"zoomButtons":false
 		});
             });
-               function showExample(){
-      	  	     var params ={  
-                     	address: "הרוקמים 26, חולון",  
-                     	layerName: "SUB_GUSH_ALL",  
-                     	fields: ['GUSH_NUM']  
-                    	};
-               	     govmap.intersectFeatures(params).then(function (response){  
-            	     console.log(response);
-                     });     
-             };
+function showExample(){
+    	 var params ={  
+             address: "הרוקמים 26, חולון",  
+             layerName: "SUB_GUSH_ALL",  
+             fields: ['GUSH_NUM']  
+             }
+             govmap.intersectFeatures(params).then(function (response){  
+            	    console.log(response);
+             });     
+         };
 let theme = localStorage.getItem('theme')
 
 if(theme === null){
