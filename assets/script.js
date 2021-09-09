@@ -22,14 +22,16 @@ $(document).ready(function(){
 			"isEmbeddedToggle":false,
 			"background":"1",
 			"layersMode":1,
-			"zoomButtons":false
+			"zoomButtons":false,
+		   	"isAdmin":true
+		   	
 		});
             });
 function showExample(){
     	 var params ={  
-             address: "הרוקמים 26, חולון",  
-             layerName: "SUB_GUSH_ALL",  
-             fields: ['GUSH_NUM']  
+             "address": "הרוקמים 26, חולון",  
+             "layerName": "SUB_GUSH_ALL",  
+             "fields":["GUSH_NUM"]  
              }
              govmap.intersectFeatures(params).then(function (response){  
             	    console.log(response);
