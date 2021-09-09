@@ -6,37 +6,36 @@ if ('serviceWorker' in navigator) {
     console.log('Service Worker: Registered');
   });
 }
-$(document).ready(function(){
-           govmap.createMap('map',
-                  {
-			"token":"b2b83221-896c-490a-87b0-10b8d737dc3e",
-			"layers":[
-			    "GASSTATIONS",
-			    "PARCEL_HOKS",
-			    "KSHTANN_ASSETS",
-		            "bus_stops",
-		            "PARCEL_ALL"
-	                ],
-			"showXY":true,
-			"identifyOnClick":true,
-			"isEmbeddedToggle":false,
-			"background":"1",
-			"layersMode":1,
-			"zoomButtons":false,
-		   	"isAdmin":true
-		   	
-		});
+$(document).ready(function () {
+                govmap.createMap('map',
+                    {
+                        "token": "5a4b8472-b95b-4687-8179-0ccb621c7990",
+                        "layers": [
+                            "GASSTATIONS",
+                            "PARCEL_HOKS",
+                            "KSHTANN_ASSETS",
+                            "PARCEL_ALL"
+                        ],
+                        "showXY": true,
+                        "identifyOnClick": true,
+                        "isEmbeddedToggle": false,
+                        "background": "1",
+                        "layersMode": 2,
+                        "zoomButtons": true
+                    });
             });
-function showExample(){
-    	 var params ={  
-             "address": "הרוקמים 26, חולון",  
-             "layerName": "SUB_GUSH_ALL",  
-             "fields":["GUSH_NUM"]  
-             }
-             govmap.intersectFeatures(params).then(function (response){  
-            	    console.log(response);
-             });     
-         };
+            function showExample() {
+                var params = {
+                    "address": "הרוקמים 26 חולון",
+                    "layerName": "SUB_GUSH_ALL",
+                    "fields": [
+                        "GUSH_NUM"
+                    ]
+                }
+            govmap.intersectFeatures(params).then(function (response) {
+                console.log(response);
+            });
+        }
 let theme = localStorage.getItem('theme')
 
 if(theme === null){
