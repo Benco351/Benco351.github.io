@@ -8,16 +8,22 @@ if ('serviceWorker' in navigator) {
 }
 $(document).ready(function(){
            govmap.createMap('map',
-                    {
-                        token: "b2b83221-896c-490a-87b0-10b8d737dc3e",
-                        layers: ["GASSTATIONS", "PARCEL_HOKS", "KSHTANN_ASSETS", "bus_stops", "PARCEL_ALL"],
-                        showXY: true,
-                        identifyOnClick: true,
-                        isEmbeddedToggle: false,
-                        background: "1",
-                        layersMode: 1,
-                        zoomButtons: false
-                    });
+                  {
+			"token":"b2b83221-896c-490a-87b0-10b8d737dc3e",
+			"layers":[
+			    "GASSTATIONS",
+			    "PARCEL_HOKS",
+			    "KSHTANN_ASSETS",
+		            "bus_stops",
+		            "PARCEL_ALL"
+	                ],
+			"showXY":true,
+			"identifyOnClick":true,
+			"isEmbeddedToggle":false,
+			"background":"1",
+			"layersMode":1,
+			"zoomButtons":false
+		});
             });
                function showExample(){
       	  	     var params ={  
