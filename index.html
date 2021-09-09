@@ -9,33 +9,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Russo+One&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="default.css">
 	<link id="theme-style" rel="stylesheet" type="text/css" href="">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="https://www.govmap.gov.il/govmap/api/govmap.api.js"></script>
-	<script type="text/javascript">
-            $(document).ready(function(){
-                govmap.createMap('map',
-                    {
-                        token: "b2b83221-896c-490a-87b0-10b8d737dc3e",
-                        layers: ["GASSTATIONS", "PARCEL_HOKS", "KSHTANN_ASSETS", "bus_stops", "PARCEL_ALL"],
-                        showXY: true,
-                        identifyOnClick: true,
-                        isEmbeddedToggle: false,
-                        background: "1",
-                        layersMode: 1,
-                        zoomButtons: false
-                    });
-            });
-               function showExample(){
-      	  	     var params ={  
-                     	address: "הרוקמים 26, חולון",  
-                     	layerName: "SUB_GUSH_ALL",  
-                     	fields: ['GUSH_NUM']  
-                    	};
-               	     govmap.intersectFeatures(params).then(function (response){  
-            	     console.log(response);
-                     });     
-             };
-        </script>
         <meta charset="utf-8" />
 </head>
 <body>
