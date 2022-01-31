@@ -12,40 +12,86 @@
 	<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 	<script src="https://www.govmap.gov.il/govmap/api/govmap.api.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function () {
-  		     govmap.createMap('map',
-        		 {
-        	 	      "token": "b2b83221-896c-490a-87b0-10b8d737dc3e",
-        	  	      "layers": [
-        	              	  "GASSTATIONS",
-        	              	  "PARCEL_HOKS",
-        	              	  "KSHTANN_ASSETS",
-        	              	  "PARCEL_ALL"
-        	              ],
-        	       	      "showXY": true,
-        	              "identifyOnClick": true,
-        	              "isEmbeddedToggle": false,
-        	              "background": "1",
-        	              "layersMode": 2,
-        	              "zoomButtons": true
-        	        });
-       		});
+		  $(document).ready(function () {
+		    govmap.createMap('map', {
+			"token": "5a4b8472-b95b-4687-8179-0ccb621c7990",
+			"layers": [
+			    "GASSTATIONS",
+			    "PARCEL_HOKS",
+			    "KSHTANN_ASSETS",
+			    "PARCEL_ALL"
+			],
+			"showXY": true,
+			"identifyOnClick": true,
+			"isEmbeddedToggle": false,
+			"background": "1",
+			"layersMode": 2,
+			"zoomButtons": true
+		    });
+		});
+
 		function showExample() {
- 		     var params = {
-  	 		"address":"הרוקמים 26 חולון",
-   			"layerName":"SUB_GUSH_ALL",
-   			"fields":[
-      			    "GUSH_NUM"
-        		]
-		     }
-      		    govmap.intersectFeatures(params).then(function (response) {
-        		   	console.log(response);
-   		    });
-    		}
-       </script>
-       <meta charset="utf-8" />
+		    var params = {
+			address: "תל אביב-יפו",
+			layerName: "SUB_GUSH_ALL"
+			// FieldName: "STATUS_TEXT"
+		    }
+		    var params1 = {
+			type: govmap.locateType.lotParcelToAddress,
+			address: "הסנונית 11 נס ציונה"
+		    }
+		    // גוש/חלקה של רחוב ועיר מסויים
+		    govmap.searchAndLocate(params1).then(function (response) {
+			const data = {
+			    params1,
+			    response
+			}
+			const options = {
+			    method: 'POST',
+			    headers: {
+				'Content-Type': 'application/json'
+			    },
+			    body: JSON.stringify(data)
+			};
+			fetch('/api', options);
+			console.log("address: " + params1.address)
+			console.log("Gush: " + response.data[0].Values[0])
+			console.log("Helka : " + response.data[0].Values[1])
+			//console.log(response.data.length)
+		    });
+		    // כל החלקות של עיר מסוימת
+		    govmap.searchAndLocate(params).then(function (response) {
+			const data = {
+			    params,
+			    response
+			}
+			const options = {
+			    method: 'POST',
+			    headers: {
+				'Content-Type': 'application/json'
+			    },
+			    body: JSON.stringify(data)
+			};
+			fetch('/gushSearch', options);
+			console.log(response)
+		    })
+
+		}
+		var data;
+			$.ajax({
+				type: "GET",  
+			    url: "js-tutorials.com_sample_file.csv",
+				dataType: "text",       
+				success: function(response){
+					data = $.csv.toArrays(response);
+
+				}   
+		    });
+		console.log(data);
+    </script>
+    <meta charset="utf-8" />
 </head>
-<body>
+<body onload="showExample()">
 
 	<section class="s1">
 		<div class="main-container">
